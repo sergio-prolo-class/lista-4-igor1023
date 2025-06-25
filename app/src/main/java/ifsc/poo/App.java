@@ -20,14 +20,24 @@ public class App implements DrawListener{
     
     public App(){
 
-        this.tela.addListener(this);
         this.tela.setXscale(0.0, dimensao);
         this.tela.setYscale(0.0, dimensao);
         this.tela.enableDoubleBuffering();
         
-        this.preenchido = selecionouPreenchimento = false;
+        this.preenchido = false;
+        this.selecionouPreenchimento = false;
         this.cor = Color.RED;
         coordenada = new Coordenada();
+
+    }
+
+    public void iniciar(){
+
+        // Compilador informou de vazamento no construtor:
+        // estou passando o proprio objeto antes de finalizar 
+        // as tarefas do construtor
+
+        this.tela.addListener(this);        
 
     }
 
@@ -39,10 +49,43 @@ public class App implements DrawListener{
 
     }
 
+    public void configuracaoDeCor(Color color){
+
+        this.cor = color;
+        this.figura.definirCorLinha(this.cor);
+        this.selecionouCor = true;
+        System.out.println(this.cor);
+
+    }
+
+    public void configuracaoDePreenchimento(){
+
+        this.preenchido = ! this.preenchido; // para intercalar
+        this.figura.setPreenchimento(preenchido);
+
+        System.out.println("Tem preenchimento: " + this.preenchido);
+        this.selecionouPreenchimento = true;
+
+    }
+
+    public void configuracaoDeFigura(ObjetoDeDesenho figura){
+
+        this.figura = figura;
+        this.selecionouFigura = true;
+        System.out.println(figura.getClass().getName());
+
+    }
+
+    public void mostrarTamanho(){
+
+        System.out.println("Tamanho: " + this.figura.getTamanho());
+
+    }
+
     public static void main(String[] args) {
 
-        System.out.println("OLÁ\n");
         App lista4 = new App();
+        lista4.iniciar();
         lista4.desenharTela();
         
     }
@@ -50,161 +93,130 @@ public class App implements DrawListener{
     
     // Implementar métodos das interfaces
 
-
+    @Override
     public void mousePressed(double x, double y) {
 
         //System.out.printf("(%g; %g)\n", x, y);
         this.coordenada.setCX(x);
         this.coordenada.setCY(y);
         
-        if(selecionouFigura && selecionouCor && selecionouPreenchimento)
-            figura.desenhar(tela, coordenada, cor);
+        if(this.selecionouFigura && this.selecionouCor && this.selecionouPreenchimento)
+            figura.desenhar(this.tela, this.coordenada, this.cor);
+        else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
 
-    }
-
-    public void keyTyped(char c) {     
     }
 
     // Quando a tecla for solta
+    @Override
     public void keyReleased(int i) {
 
         // CÓDIGOS: https://learn.microsoft.com/pt-br/dotnet/api/system.windows.forms.keys?view=windowsdesktop-8.0
 
+        // Compilador sugeriu aplicar "rule switch"
         switch(i){
 
             // TECLAS F
-            case 112 : // F1
-
-                this.figura = new Circulo();
-                this.selecionouFigura = true;
-                System.out.println(figura.getClass().getName());
-                break;
+            case 112 -> configuracaoDeFigura(new Circulo()); // F1
             
-            case 113 : // F2
-                break;
+            case 113 -> configuracaoDeFigura(new Quadrado()); // F2
             
-            case 114 : // F3
-                break;
+            case 114 -> configuracaoDeFigura(new Hexagono()); // F3
         
-            case 115 : // F4
-                break;            
+            case 115 -> configuracaoDeFigura(new Pentagono()); // F4
             
             // CORES
-            case 116 : // F5
+            case 116 -> {
                
-                if(selecionouFigura){
+                if(selecionouFigura)
+                    configuracaoDeCor(Color.RED);        
 
-                    this.cor = Color.RED;
-                    figura.definirCorLinha(cor);
-                    selecionouCor = true;
-                    System.out.println(cor);
-
-                }
-
-                break;
+            }
             
-            case 117 : // F6
+            case 117 -> {
 
-                if(selecionouFigura){
+                if(selecionouFigura)
+                    configuracaoDeCor(Color.BLUE); 
 
-                    this.cor = Color.BLUE;
-                    figura.definirCorLinha(cor);
-                    selecionouCor = true;
-                    System.out.println(cor);
-
-                }    
-
-                break;
+            }
             
-            case 118 : // F7
+            case 118 -> {
                 
-                if(selecionouFigura){
+                if(selecionouFigura)
+                    configuracaoDeCor(Color.GREEN); 
 
-                    this.cor = Color.GREEN;
-                    figura.definirCorLinha(cor);
-                    selecionouCor = true;
-                    System.out.println(cor);
+            }
 
-                }
-
-                break;
-
-            case 119 : // F8
+            case 119 -> {
                 
-                if(selecionouFigura){
+                if(selecionouFigura)
+                    configuracaoDeCor(Color.YELLOW); 
 
-                    this.cor = Color.YELLOW;
-                    figura.definirCorLinha(cor);
-                    selecionouCor = true;
-                    System.out.println(cor);
-
-                }
-
-                break;
+            }
 
             // COMANDOS 
-            case 67  : // C
+            case 67 -> {
 
                 this.tela.clear();
                 this.tela.show();
-                break;
 
-            case 70  : // F
+            }
+
+            case 70 -> {
                 
-                if(selecionouFigura){
+                if(selecionouFigura)
+                    configuracaoDePreenchimento();
 
-                    this.preenchido = ! this.preenchido;
-                    figura.setPreenchimento(preenchido);
-
-                    System.out.println("Tem preenchimento: " + this.preenchido);
-                    this.selecionouPreenchimento = true;
-
-                }
-
-                break;
+            }
             
-            case 80  : // P
-                break;
+            case 80 -> {
+
+
+
+            }
             
-            case 81  : // Q
+            case 81 -> {
                 
                 if(selecionouFigura){
                 
-                    figura.diminuirTamanho();
-                    System.out.println(figura.getTamanho());
-                
+                    this.figura.diminuirTamanho();
+                    mostrarTamanho();
+
                 }
 
-                break;
+            }
 
-            case 87  : // W
+            case 87 -> {
 
                 if(selecionouFigura){
                 
-                    figura.aumentarTamanho();    
-                    System.out.println(figura.getTamanho());
+                    this.figura.aumentarTamanho();    
+                    mostrarTamanho();
                 
                 }
+
+            }
         }
 
     }
 
+    @Override
     public void mouseDragged(double v, double v1) {
     }
 
+    @Override
     public void mouseReleased(double v, double v1) {
     }
 
-    // Não utilizei este método pois não funciona:
-    // - varios cliques em diversos locais da tela
-    // em um curto intervalo de tempo apresenta problema
+    @Override
     public void mouseClicked(double v, double v1) {
-
-        //System.out.printf("(%g; %g)\n", v, v1);
-
     }
 
+    @Override
     public void keyPressed(int i) {
+    }
+
+    @Override
+    public void keyTyped(char c) {     
     }
 
 }

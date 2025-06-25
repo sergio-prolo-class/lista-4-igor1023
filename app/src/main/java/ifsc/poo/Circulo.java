@@ -16,7 +16,7 @@ public class Circulo extends ObjetoDeDesenho{
 
     public Circulo(){
 
-        this.tamanho = 3.0;
+        this.tamanho = Constantes.TAMANHO_DEFAULT_HEXAGONO;
 
     }
 
@@ -82,6 +82,7 @@ public class Circulo extends ObjetoDeDesenho{
     @Override
     public double getArea(){
 
+        // Pierri²
         return Math.PI * Math.pow(getTamanho(), 2.0);
 
     }

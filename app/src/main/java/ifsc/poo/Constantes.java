@@ -1,5 +1,5 @@
+package ifsc.poo;
 // Classe para constantes
-// SE necessário...
 
 /*
  * FUNÇÃO DE CADA TECLA:
@@ -18,3 +18,12 @@
  * Q  : Diminui tamanho da figura
  * W  : Aumenta tamanho da figura
 */
+
+public class Constantes{
+
+    static final double TAMANHO_DEFAULT_CIRCULO = 3.0;
+    static final double TAMANHO_DEFAULT_QUADRADO = 2.5;
+    static final double TAMANHO_DEFAULT_HEXAGONO = 2.0;
+    static final double TAMANHO_DEFAULT_PENTAGONO = 1.5;
+
+}
