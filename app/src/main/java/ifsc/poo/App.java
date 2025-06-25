@@ -9,14 +9,16 @@ import edu.princeton.cs.algs4.DrawListener;
 
 public class App implements DrawListener{
     
-    private Draw tela = new Draw();
+    private final Draw tela = new Draw();
     private final double dimensao = 10.0;
     private ObjetoDeDesenho figura;
-    private Coordenada coordenada;
+    private final Coordenada coordenada;
     private boolean selecionouFigura;
     private boolean selecionouCor;
     private boolean preenchido, selecionouPreenchimento;
     private Color cor;
+    private double somatorioArea;
+    private int numeroFiguras;
     
     public App(){
 
@@ -27,7 +29,9 @@ public class App implements DrawListener{
         this.preenchido = false;
         this.selecionouPreenchimento = false;
         this.cor = Color.RED;
-        coordenada = new Coordenada();
+        this.somatorioArea = 0.0;
+        this.numeroFiguras = 0;
+        this.coordenada = new Coordenada();
 
     }
 
@@ -35,7 +39,8 @@ public class App implements DrawListener{
 
         // Compilador informou de vazamento no construtor:
         // estou passando o proprio objeto antes de finalizar 
-        // as tarefas do construtor
+        // as tarefas do construtor, entao criei este método
+        // para chamar depois de criar um objeto de App
 
         this.tela.addListener(this);        
 
@@ -72,6 +77,7 @@ public class App implements DrawListener{
 
         this.figura = figura;
         this.selecionouFigura = true;
+        this.somatorioArea += figura.getArea();
         System.out.println(figura.getClass().getName());
 
     }
@@ -79,6 +85,12 @@ public class App implements DrawListener{
     public void mostrarTamanho(){
 
         System.out.println("Tamanho: " + this.figura.getTamanho());
+
+    }
+
+    public void processar(){
+
+        
 
     }
 
@@ -100,8 +112,13 @@ public class App implements DrawListener{
         this.coordenada.setCX(x);
         this.coordenada.setCY(y);
         
-        if(this.selecionouFigura && this.selecionouCor && this.selecionouPreenchimento)
+        if(this.selecionouFigura && this.selecionouCor && this.selecionouPreenchimento){
+            
             figura.desenhar(this.tela, this.coordenada, this.cor);
+            
+            // Só contabilizo uma figura criada quando ela é desenhada
+            this.numeroFiguras++; 
+        }
         else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
 
     }
@@ -125,28 +142,28 @@ public class App implements DrawListener{
             case 115 -> configuracaoDeFigura(new Pentagono()); // F4
             
             // CORES
-            case 116 -> {
+            case 116 -> { //F5
                
                 if(selecionouFigura)
                     configuracaoDeCor(Color.RED);        
 
             }
             
-            case 117 -> {
+            case 117 -> { // F6
 
                 if(selecionouFigura)
                     configuracaoDeCor(Color.BLUE); 
 
             }
             
-            case 118 -> {
+            case 118 -> { // F7
                 
                 if(selecionouFigura)
                     configuracaoDeCor(Color.GREEN); 
 
             }
 
-            case 119 -> {
+            case 119 -> { // F8
                 
                 if(selecionouFigura)
                     configuracaoDeCor(Color.YELLOW); 
@@ -154,27 +171,23 @@ public class App implements DrawListener{
             }
 
             // COMANDOS 
-            case 67 -> {
+            case 67 -> { // C
 
                 this.tela.clear();
                 this.tela.show();
 
             }
 
-            case 70 -> {
+            case 70 -> { // F
                 
                 if(selecionouFigura)
                     configuracaoDePreenchimento();
 
             }
             
-            case 80 -> {
-
-
-
-            }
+            case 80 -> processar(); // P
             
-            case 81 -> {
+            case 81 -> { // Q
                 
                 if(selecionouFigura){
                 
@@ -185,7 +198,7 @@ public class App implements DrawListener{
 
             }
 
-            case 87 -> {
+            case 87 -> { // W
 
                 if(selecionouFigura){
                 
