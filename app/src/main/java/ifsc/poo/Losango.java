@@ -4,19 +4,11 @@ import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
 
-public class Hexagono extends ObjetoDeDesenho{
+public class Losango extends ObjetoDeDesenho{
 
-    static double areaSoma;
+    public Losango(){
 
-    static{
-
-        areaSoma = 0.0;
-
-    }
-
-    public Hexagono(){
-
-        this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
+        this.tamanho = Constantes.TAMANHO_DEFAULT_LOSANGO;
 
     }
 
@@ -40,14 +32,12 @@ public class Hexagono extends ObjetoDeDesenho{
 
     private double[] coordenadasX(double cx){
 
-        double[] x = new double[6];
+        double[] x = new double[4];
 
-        x[0] = cx + getTamanho();
-        x[1] = cx + getTamanho() * Math.cos(Math.toRadians(60));
-        x[2] = cx - getTamanho() * Math.cos(Math.toRadians(60));
-        x[3] = cx - getTamanho();
-        x[4] = cx - getTamanho() * Math.cos(Math.toRadians(60));
-        x[5] = cx + getTamanho() * Math.cos(Math.toRadians(60));
+        x[0] = cx + getTamanho() * Math.sin(Math.toRadians(26.565));
+        x[1] = cx;
+        x[2] = cx - getTamanho() * Math.sin(Math.toRadians(26.565));
+        x[3] = cx;
 
         return x;
 
@@ -55,16 +45,26 @@ public class Hexagono extends ObjetoDeDesenho{
 
     private double[] coordenadasY(double cy){
 
-        double[] y = new double[6];
+        double[] y = new double[4];
 
         y[0] = cy;
-        y[1] = cy + getTamanho() * Math.cos(Math.toRadians(30));
-        y[2] = cy + getTamanho() * Math.cos(Math.toRadians(30));
-        y[3] = cy;
-        y[4] = cy - getTamanho() * Math.cos(Math.toRadians(30));
-        y[5] = cy - getTamanho() * Math.cos(Math.toRadians(30));
+        y[1] = cy + getTamanho() * Math.sin(Math.toRadians(63.435));;
+        y[2] = cy;
+        y[3] = cy - getTamanho() * Math.sin(Math.toRadians(63.435));
 
         return y;
+
+    }
+
+    private double diagonal1(){
+
+        return 2.0 * getTamanho() * Math.sin(Math.toRadians(26.565));
+
+    }
+
+    private double diagonal2(){
+        
+        return 2.0 * getTamanho() * Math.sin(Math.toRadians(63.435));
 
     }
 
@@ -81,7 +81,6 @@ public class Hexagono extends ObjetoDeDesenho{
         else desenharSemPreenchimento(tela, x, y);
 
         tela.show();
-        areaSoma += getArea();
 
     }
 
@@ -118,8 +117,8 @@ public class Hexagono extends ObjetoDeDesenho{
     @Override
     public double getArea(){
 
-        // A = (3√3 * lado²) / 2
-        return (3.0 * Math.sqrt(3.0) * Math.pow(getTamanho(), 2.0)) / 2.0;
+        // A = (D1 + D2) / 2
+        return (diagonal1() * diagonal2()) / 2.0;
 
     }
 
@@ -157,6 +156,5 @@ public class Hexagono extends ObjetoDeDesenho{
         return this.corDeLinha;
 
     }
-
 
 }

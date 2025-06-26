@@ -20,9 +20,9 @@ public class App implements DrawListener{
     private boolean preenchido, selecionouPreenchimento;
     private Color cor;
     private double somatorioArea;
+    private double somatorioPerimetro;
     private List<ObjetoDeDesenho> figuras;
-    private Coordenada coordClick;
-    
+
     public App(){
 
         this.tela.setXscale(0.0, dimensao);
@@ -33,6 +33,7 @@ public class App implements DrawListener{
         this.selecionouPreenchimento = false;
         this.cor = Color.RED;
         this.somatorioArea = 0.0;
+        this.somatorioPerimetro = 0.0;
         this.figuras = new ArrayList<>();
         this.coordenada = new Coordenada();
 
@@ -80,8 +81,9 @@ public class App implements DrawListener{
 
         this.figura = figura;
         this.selecionouFigura = true;
-        this.somatorioArea += figura.getArea();
-        System.out.println(figura.getClass().getName());
+
+        // Para remover o "ifsc.poo.";
+        System.out.println(figura.getClass().getName().substring(9));
 
     }
 
@@ -93,12 +95,15 @@ public class App implements DrawListener{
 
     public void processar(){
 
-        System.out.println("Total de figuras desenhadas: " + this.figuras.size());
-
+        System.out.printf("Total de figuras desenhadas: %d\n", this.figuras.size());
+        System.out.printf("Somatório de área das figuras: %.2f\n", this.somatorioArea);
+        System.out.printf("Somatório de perímetro das figuras: %.2f\n", this.somatorioPerimetro);
+        
     }
 
     public void moverEsquerda(double a){
 
+        // Subtrair a componente X
         for (ObjetoDeDesenho fig : this.figuras) {
 
             Coordenada c = fig.getCoordenada();
@@ -112,6 +117,7 @@ public class App implements DrawListener{
 
     public void moverBaixo(double a){
 
+        // Subtrair a componente Y
         for (ObjetoDeDesenho fig : this.figuras) {
 
             Coordenada c = fig.getCoordenada();
@@ -125,6 +131,7 @@ public class App implements DrawListener{
 
     public void moverDireita(double a){
 
+        // Somar a componente X
         for (ObjetoDeDesenho fig : this.figuras) {
 
             Coordenada c = fig.getCoordenada();
@@ -138,6 +145,7 @@ public class App implements DrawListener{
 
     public void moverCima(double a){
 
+        // Somar a componente Y
         for (ObjetoDeDesenho fig : this.figuras) {
 
             Coordenada c = fig.getCoordenada();
@@ -152,12 +160,12 @@ public class App implements DrawListener{
     private void desenharFiguras(){
 
         this.tela.clear();
-        
-        System.out.println("Tamanho LISTA: " + this.figuras.size());
 
         for(ObjetoDeDesenho fig : this.figuras){
+
             fig.desenhar(this.tela, fig.getCoordenada(), fig.getCor());
-            System.out.println(fig.getCor());
+            System.out.println(fig.getCoordenada().getCX() + "; " + fig.getCoordenada().getCY());
+
         }
     }
 
@@ -187,6 +195,9 @@ public class App implements DrawListener{
             // Só contabilizo uma figura criada quando ela é desenhada
             this.figuras.add(this.figura);
 
+            somatorioArea += this.figura.getArea();
+            somatorioPerimetro += this.figura.getPerimetro();
+
         } else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
 
     }
@@ -203,11 +214,11 @@ public class App implements DrawListener{
             // TECLAS F
             case 112 -> configuracaoDeFigura(new Circulo()); // F1
             
-            //case 113 -> configuracaoDeFigura(new Quadrado()); // F2
+            case 113 -> configuracaoDeFigura(new Quadrado()); // F2
             
-            //case 114 -> configuracaoDeFigura(new Hexagono()); // F3
+            case 114 -> configuracaoDeFigura(new Hexagono()); // F3
         
-            //case 115 -> configuracaoDeFigura(new Pentagono()); // F4
+            case 115 -> configuracaoDeFigura(new Losango()); // F4
             
             // CORES
             case 116 -> { //F5

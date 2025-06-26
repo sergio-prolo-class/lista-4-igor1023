@@ -30,6 +30,7 @@ public abstract class ObjetoDeDesenho{
     abstract void definirCorLinha(Color cor);
     abstract double getTamanho();
     abstract double getArea();
+    abstract double getPerimetro();
     abstract void setPreenchimento(boolean p);
     abstract void setCoordenada(double x, double y);
     abstract Coordenada getCoordenada();

@@ -1,96 +1,115 @@
-// package ifsc.poo;
-// import java.awt.Color;
+package ifsc.poo;
+import java.awt.Color;
 
-// import edu.princeton.cs.algs4.Draw;
+import edu.princeton.cs.algs4.Draw;
 
-// public class Quadrado extends ObjetoDeDesenho{
+public class Quadrado extends ObjetoDeDesenho{
 
-//     static double somaArea;
+    public Quadrado(){
 
-//     static{
+        this.tamanho = Constantes.TAMANHO_DEFAULT_QUADRADO;
 
-//         somaArea = 0;
+    }
 
-//     }
+    private void desenharSemPreenchimento(Draw tela, Coordenada coord){
 
-//     public Quadrado(){
+        tela.setPenColor(Color.BLACK);
+        tela.square(coord.getCX(), coord.getCY(), getTamanho());
 
-//         this.tamanho = Constantes.TAMANHO_DEFAULT_QUADRADO;
+    }
 
-//     }
+    private void desenharComPreenchimento(Draw tela, Coordenada coord, Color cor){
 
-//     private void desenharSemPreenchimento(Draw tela, Coordenada coord){
+        tela.setPenColor(cor);
+        tela.filledSquare(coord.getCX(), coord.getCY(), getTamanho());
 
-//         tela.setPenColor(Color.BLACK);
-//         tela.square(coord.getCX(), coord.getCY(), getTamanho());
+        // Para desenhar a borda em preto
+        tela.setPenColor(Color.BLACK);
+        desenharSemPreenchimento(tela, coord);
+    }
 
-//     }
+    @Override
+    public void desenhar(Draw tela, Coordenada coord, Color cor){
 
-//     private void desenharComPreenchimento(Draw tela, Coordenada coord, Color cor){
+        if(this.temPreenchimento)
+            desenharComPreenchimento(tela, coord, cor);
+        else desenharSemPreenchimento(tela, coord);
 
-//         tela.setPenColor(cor);
-//         tela.filledSquare(coord.getCX(), coord.getCY(), getTamanho());
+        tela.show();
 
-//         // Para desenhar a borda em preto
-//         tela.setPenColor(Color.BLACK);
-//         desenharSemPreenchimento(tela, coord);
-//     }
+    }
 
-//     @Override
-//     public void desenhar(Draw tela, Coordenada coord, Color cor){
+    @Override
+    public double getTamanho(){
 
-//         if(this.temPreenchimento)
-//             desenharComPreenchimento(tela, coord, cor);
-//         else desenharSemPreenchimento(tela, coord);
+        return this.tamanho;
 
-//         tela.show();
-//         somaArea += getArea();
+    }
 
-//     }
+    @Override
+    public void aumentarTamanho(){
 
-//     @Override
-//     public double getTamanho(){
+        if(this.tamanho < TAMANHO_MAXIMO)
+            tamanho += ALTERAR;
 
-//         return this.tamanho;
+    }
 
-//     }
-
-//     @Override
-//     public void aumentarTamanho(){
-
-//         if(this.tamanho < TAMANHO_MAXIMO)
-//             tamanho += ALTERAR;
-
-//     }
-
-//     @Override
-//     public void diminuirTamanho(){
+    @Override
+    public void diminuirTamanho(){
         
-//         if(this.tamanho > TAMANHO_MINIMO)
-//             tamanho -= ALTERAR;
+        if(this.tamanho > TAMANHO_MINIMO)
+            tamanho -= ALTERAR;
 
-//     }
+    }
 
-//     @Override
-//     public void definirCorLinha(Color cor){
+    @Override
+    public void definirCorLinha(Color cor){
 
-//         this.corDeLinha = cor;
+        this.corDeLinha = cor;
 
-//     }
+    }
 
-//     @Override
-//     public double getArea(){
+    @Override
+    public double getArea(){
 
-//         // lado²
-//         return getTamanho() * getTamanho();
+        // lado²
+        return getTamanho() * getTamanho();
 
-//     }
+    }
 
-//     @Override
-//     public void setPreenchimento(boolean p){
+    @Override
+    public double getPerimetro(){
 
-//         this.temPreenchimento = p;
+        return 4.0 * getTamanho();
 
-//     }
+    }
 
-// }
+    @Override
+    public void setPreenchimento(boolean p){
+
+        this.temPreenchimento = p;
+
+    }
+
+    @Override
+    public void setCoordenada(double x, double y){
+
+        this.coordenada = new Coordenada(x, y);
+
+    }
+
+    @Override
+    public Coordenada getCoordenada(){
+
+        return this.coordenada;
+
+    }
+
+    @Override
+    public Color getCor(){
+
+        return this.corDeLinha;
+
+    }
+
+}

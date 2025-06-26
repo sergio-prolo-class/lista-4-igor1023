@@ -6,17 +6,9 @@ import edu.princeton.cs.algs4.Draw;
 
 public class Circulo extends ObjetoDeDesenho{
 
-    static double areaSoma;
-
-    static{
-
-        areaSoma = 0.0;
-
-    }
-
     public Circulo(){
 
-        this.tamanho = Constantes.TAMANHO_DEFAULT_HEXAGONO;
+        this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
 
     }
 
@@ -45,7 +37,6 @@ public class Circulo extends ObjetoDeDesenho{
         else desenharSemPreenchimento(tela, coord);
 
         tela.show();
-        areaSoma += getArea();
 
     }
 
@@ -84,6 +75,14 @@ public class Circulo extends ObjetoDeDesenho{
 
         // Pierri²
         return Math.PI * Math.pow(getTamanho(), 2.0);
+
+    }
+
+    @Override
+    public double getPerimetro(){
+
+        // 2 Pierri
+        return 2.0 * Math.PI * getTamanho();
 
     }
 
