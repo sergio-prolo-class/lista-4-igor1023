@@ -30,7 +30,7 @@ public class Circulo extends ObjetoDeDesenho{
     private void desenharComPreenchimento(Draw tela, Coordenada coord, Color cor){
 
         tela.setPenColor(cor);
-        tela.filledCircle(coord.getCX(), coord.getCY(), tamanho);
+        tela.filledCircle(coord.getCX(), coord.getCY(), this.tamanho);
 
         // Para desenhar a borda em preto
         tela.setPenColor(Color.BLACK);
@@ -91,6 +91,27 @@ public class Circulo extends ObjetoDeDesenho{
     public void setPreenchimento(boolean p){
 
         this.temPreenchimento = p;
+
+    }
+
+    @Override
+    public void setCoordenada(double x, double y){
+
+        this.coordenada = new Coordenada(x, y);
+
+    }
+
+    @Override
+    public Coordenada getCoordenada(){
+
+        return this.coordenada;
+
+    }
+
+    @Override
+    public Color getCor(){
+
+        return this.corDeLinha;
 
     }
 }

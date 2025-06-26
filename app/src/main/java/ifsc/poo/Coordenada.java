@@ -6,7 +6,14 @@ public class Coordenada{
 
     public Coordenada(){
 
-        this.x = this.y = 0.0;
+        this(0.0, 0.0);
+
+    }
+
+    public Coordenada(double x, double y){
+
+        this.x = x;
+        this.y = y;
 
     }
 

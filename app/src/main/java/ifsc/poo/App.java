@@ -3,6 +3,8 @@
 package ifsc.poo;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.princeton.cs.algs4.Draw;
 import edu.princeton.cs.algs4.DrawListener;
@@ -12,13 +14,14 @@ public class App implements DrawListener{
     private final Draw tela = new Draw();
     private final double dimensao = 10.0;
     private ObjetoDeDesenho figura;
-    private final Coordenada coordenada;
+    private Coordenada coordenada;
     private boolean selecionouFigura;
     private boolean selecionouCor;
     private boolean preenchido, selecionouPreenchimento;
     private Color cor;
     private double somatorioArea;
-    private int numeroFiguras;
+    private List<ObjetoDeDesenho> figuras;
+    private Coordenada coordClick;
     
     public App(){
 
@@ -30,7 +33,7 @@ public class App implements DrawListener{
         this.selecionouPreenchimento = false;
         this.cor = Color.RED;
         this.somatorioArea = 0.0;
-        this.numeroFiguras = 0;
+        this.figuras = new ArrayList<>();
         this.coordenada = new Coordenada();
 
     }
@@ -90,8 +93,72 @@ public class App implements DrawListener{
 
     public void processar(){
 
-        
+        System.out.println("Total de figuras desenhadas: " + this.figuras.size());
 
+    }
+
+    public void moverEsquerda(double a){
+
+        for (ObjetoDeDesenho fig : this.figuras) {
+
+            Coordenada c = fig.getCoordenada();
+            fig.setCoordenada(c.getCX() - a, c.getCY());
+
+        }
+    
+        desenharFiguras();
+
+    }
+
+    public void moverBaixo(double a){
+
+        for (ObjetoDeDesenho fig : this.figuras) {
+
+            Coordenada c = fig.getCoordenada();
+            fig.setCoordenada(c.getCX(), c.getCY() - a);
+
+        }
+    
+        desenharFiguras();
+
+    }
+
+    public void moverDireita(double a){
+
+        for (ObjetoDeDesenho fig : this.figuras) {
+
+            Coordenada c = fig.getCoordenada();
+            fig.setCoordenada(c.getCX() + a, c.getCY());
+
+        }
+    
+        desenharFiguras();
+
+    }
+
+    public void moverCima(double a){
+
+        for (ObjetoDeDesenho fig : this.figuras) {
+
+            Coordenada c = fig.getCoordenada();
+            fig.setCoordenada(c.getCX(), c.getCY() + a);
+
+        }
+    
+        desenharFiguras();
+
+    }
+
+    private void desenharFiguras(){
+
+        this.tela.clear();
+        
+        System.out.println("Tamanho LISTA: " + this.figuras.size());
+
+        for(ObjetoDeDesenho fig : this.figuras){
+            fig.desenhar(this.tela, fig.getCoordenada(), fig.getCor());
+            System.out.println(fig.getCor());
+        }
     }
 
     public static void main(String[] args) {
@@ -103,23 +170,24 @@ public class App implements DrawListener{
     }
 
     
+
     // Implementar métodos das interfaces
 
     @Override
     public void mousePressed(double x, double y) {
 
         //System.out.printf("(%g; %g)\n", x, y);
-        this.coordenada.setCX(x);
-        this.coordenada.setCY(y);
+        this.coordenada = new Coordenada(x, y);
         
         if(this.selecionouFigura && this.selecionouCor && this.selecionouPreenchimento){
             
             figura.desenhar(this.tela, this.coordenada, this.cor);
-            
+            figura.setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
             // Só contabilizo uma figura criada quando ela é desenhada
-            this.numeroFiguras++; 
-        }
-        else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
+            this.figuras.add(this.figura);
+
+        } else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
 
     }
 
@@ -135,11 +203,11 @@ public class App implements DrawListener{
             // TECLAS F
             case 112 -> configuracaoDeFigura(new Circulo()); // F1
             
-            case 113 -> configuracaoDeFigura(new Quadrado()); // F2
+            //case 113 -> configuracaoDeFigura(new Quadrado()); // F2
             
-            case 114 -> configuracaoDeFigura(new Hexagono()); // F3
+            //case 114 -> configuracaoDeFigura(new Hexagono()); // F3
         
-            case 115 -> configuracaoDeFigura(new Pentagono()); // F4
+            //case 115 -> configuracaoDeFigura(new Pentagono()); // F4
             
             // CORES
             case 116 -> { //F5
@@ -208,6 +276,16 @@ public class App implements DrawListener{
                 }
 
             }
+
+            // SETAS
+            case 37 -> moverEsquerda(Constantes.VALOR_MOVER); // ESQUERDA
+
+            case 38 -> moverCima(Constantes.VALOR_MOVER); // CIMA
+
+            case 39 -> moverDireita(Constantes.VALOR_MOVER); // DIREITA
+
+            case 40 -> moverBaixo(Constantes.VALOR_MOVER); // BAIXO
+
         }
 
     }

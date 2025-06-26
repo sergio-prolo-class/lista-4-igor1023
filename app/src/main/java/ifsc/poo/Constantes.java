@@ -25,5 +25,6 @@ public class Constantes{
     static final double TAMANHO_DEFAULT_QUADRADO = 2.5;
     static final double TAMANHO_DEFAULT_HEXAGONO = 2.0;
     static final double TAMANHO_DEFAULT_PENTAGONO = 1.5;
+    static final double VALOR_MOVER = 0.5;
 
 }
