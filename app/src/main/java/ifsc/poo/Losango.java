@@ -69,15 +69,15 @@ public class Losango extends ObjetoDeDesenho{
     }
 
     @Override
-    public void desenhar(Draw tela, Coordenada coord, Color cor){
+    public void desenhar(Draw tela){
 
         // A coord será o ponto central do Hexagono
-        double[] x = coordenadasX(coord.getCX());
-        double[] y = coordenadasY(coord.getCY());
+        double[] x = coordenadasX(this.coordenada.getCX());
+        double[] y = coordenadasY(this.coordenada.getCY());
 
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, x, y, cor);
+            desenharComPreenchimento(tela, x, y, this.corDeLinha);
         else desenharSemPreenchimento(tela, x, y);
 
         tela.show();
@@ -154,6 +154,42 @@ public class Losango extends ObjetoDeDesenho{
     public Color getCor(){
 
         return this.corDeLinha;
+
+    }
+
+    @Override
+    public void moverCima(double a){
+
+        // Modifico a componente Y
+        this.coordenada.setCY(this.coordenada.getCY() + a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverBaixo(double a){
+
+        // Modifico a componente Y
+        this.coordenada.setCY(this.coordenada.getCY() - a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverEsquerda(double a){
+
+        // Modifico a componente X
+        this.coordenada.setCX(this.coordenada.getCY() - a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverDireita(double a){
+
+        // Modifico a componente X
+        this.coordenada.setCX(this.coordenada.getCY() + a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
 
     }
 

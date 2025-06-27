@@ -30,11 +30,11 @@ public class Circulo extends ObjetoDeDesenho{
     }
 
     @Override
-    public void desenhar(Draw tela, Coordenada coord, Color cor){
+    public void desenhar(Draw tela){
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, coord, cor);
-        else desenharSemPreenchimento(tela, coord);
+            desenharComPreenchimento(tela, this.coordenada, this.corDeLinha);
+        else desenharSemPreenchimento(tela, this.coordenada);
 
         tela.show();
 
@@ -113,4 +113,41 @@ public class Circulo extends ObjetoDeDesenho{
         return this.corDeLinha;
 
     }
+
+    @Override
+    public void moverCima(double a){
+
+        // Modifico a componente Y
+        this.coordenada.setCY(this.coordenada.getCY() + a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverBaixo(double a){
+
+        // Modifico a componente Y
+        this.coordenada.setCY(this.coordenada.getCY() - a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverEsquerda(double a){
+
+        // Modifico a componente X
+        this.coordenada.setCX(this.coordenada.getCY() - a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
+    @Override
+    public void moverDireita(double a){
+
+        // Modifico a componente X
+        this.coordenada.setCX(this.coordenada.getCY() + a);
+        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+
+    }
+
 }

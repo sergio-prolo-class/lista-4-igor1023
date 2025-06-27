@@ -24,7 +24,7 @@ public abstract class ObjetoDeDesenho{
     protected boolean temPreenchimento;
     protected Coordenada coordenada;
 
-    abstract void desenhar(Draw tela, Coordenada coord, Color cor);
+    abstract void desenhar(Draw tela);
     abstract void aumentarTamanho();
     abstract void diminuirTamanho();
     abstract void definirCorLinha(Color cor);
@@ -35,5 +35,9 @@ public abstract class ObjetoDeDesenho{
     abstract void setCoordenada(double x, double y);
     abstract Coordenada getCoordenada();
     abstract Color getCor();
+    abstract void moverCima(double a);
+    abstract void moverBaixo(double a);
+    abstract void moverEsquerda(double a);
+    abstract void moverDireita(double a);
 
 }
