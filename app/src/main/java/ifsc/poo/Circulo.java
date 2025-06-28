@@ -3,7 +3,7 @@ import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
 
-public class Circulo extends ObjetoDeDesenho{
+public class Circulo extends FormaGeometrica{
 
     public Circulo(){
 
@@ -119,6 +119,7 @@ public class Circulo extends ObjetoDeDesenho{
 
     }
 
+    // Métodos da Interface Movedor
     @Override
     public void moverCima(double a){
 

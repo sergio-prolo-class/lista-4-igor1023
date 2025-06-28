@@ -14,7 +14,7 @@ public class App implements DrawListener {
     private final Draw tela = new Draw();
 
     // Parametros para criar uma figura
-    private ObjetoDeDesenho figura; // Figura a ser desenhada
+    private FormaGeometrica figura; // Figura a ser desenhada
     private Coordenada coordenada;
     private boolean ehPreenchido;
     private Color cor;
@@ -27,7 +27,7 @@ public class App implements DrawListener {
     private boolean selecionouPreenchimento;
     private double somatorioArea;
     private double somatorioPerimetro;
-    private List<ObjetoDeDesenho> figurasDesenhadas;
+    private final List<FormaGeometrica> figurasDesenhadas;
 
     public App() {
 
@@ -63,7 +63,7 @@ public class App implements DrawListener {
     public void desenharTela() {
 
         this.tela.clear();
-        this.tela.setTitle("Clique em qualquer região para desenhar sua Figura");
+        this.tela.setTitle("Lista 4 | Aluno: Igor da Silva");
         this.tela.show();
 
     }
@@ -73,10 +73,10 @@ public class App implements DrawListener {
         this.cor = switch(nomeCor){
 
             case "Vermelho" -> Color.RED;
-            case "Azul" -> Color.BLUE;
-            case "Verde" -> Color.GREEN;
-            case "Amarelo" -> Color.YELLOW;
-            default -> null; // Nunca vai ocorrer
+            case "Azul"     -> Color.BLUE;
+            case "Verde"    -> Color.GREEN;
+            case "Amarelo"  -> Color.YELLOW;
+            default         -> null; // Nunca vai ocorrer
         };
 
         this.selecionouCor = true;
@@ -86,7 +86,7 @@ public class App implements DrawListener {
 
     public void configuracaoDePreenchimento() {
 
-        this.ehPreenchido = !this.ehPreenchido; // para intercalar
+        this.ehPreenchido = ! this.ehPreenchido; // para intercalar
 
         System.out.println("Tem preenchimento: " + this.ehPreenchido);
         this.selecionouPreenchimento = true;
@@ -103,11 +103,11 @@ public class App implements DrawListener {
 
         this.tamanho = switch(nomeFigura){
 
-            case "Circulo" -> this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
+            case "Circulo"  -> this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
             case "Quadrado" -> this.tamanho = Constantes.TAMANHO_DEFAULT_QUADRADO;
             case "Hexagono" -> this.tamanho = Constantes.TAMANHO_DEFAULT_HEXAGONO;
-            case "Losango" -> this.tamanho = Constantes.TAMANHO_DEFAULT_LOSANGO;
-            default -> 0.0;
+            case "Losango"  -> this.tamanho = Constantes.TAMANHO_DEFAULT_LOSANGO;
+            default         -> 0.0;
 
         };
 
@@ -120,8 +120,10 @@ public class App implements DrawListener {
         this.tela.clear();
         this.tela.show();
         this.figurasDesenhadas.clear();
+
         this.somatorioArea = 0.0;
         this.somatorioPerimetro = 0.0;
+
         System.out.println("A tela foi limpa.");
 
     }
@@ -152,9 +154,14 @@ public class App implements DrawListener {
 
     }
 
+    // Para mover:
+    // > Limpo a tela;
+    // > Altero as coordenadas conforme a direção;
+    // > Redesenho as figuras
+
     public void moverEsquerda(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
+        for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverEsquerda(a);
 
         desenharFiguras();
@@ -163,7 +170,7 @@ public class App implements DrawListener {
 
     public void moverBaixo(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
+        for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverBaixo(a);
 
         desenharFiguras();
@@ -172,7 +179,7 @@ public class App implements DrawListener {
 
     public void moverDireita(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
+        for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverDireita(a);
 
         desenharFiguras();
@@ -181,7 +188,7 @@ public class App implements DrawListener {
 
     public void moverCima(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
+        for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverCima(a);
 
         desenharFiguras();
@@ -190,20 +197,19 @@ public class App implements DrawListener {
 
     private void desenharFiguras() {
 
+        // limpo e redesenho
+
         this.tela.clear();
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
-
+        for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.desenhar(this.tela);
-            // Para depurar
-            // System.out.println(fig.getCoordenada().getCX() + "; " + fig.getCoordenada().getCY());
-
-        }
+            
     }
 
-    private ObjetoDeDesenho criarFigura() {
+    private FormaGeometrica criarFigura() {
 
-        ObjetoDeDesenho fig = switch (this.tipoObjetoSelecionado) {
+        // Uso de Polimorfismo
+        FormaGeometrica fig = switch (this.tipoObjetoSelecionado) {
 
             case "Circulo"  -> new Circulo();
             case "Quadrado" -> new Quadrado();
@@ -240,6 +246,7 @@ public class App implements DrawListener {
         if (this.selecionouFigura && this.selecionouCor && this.selecionouPreenchimento
             && this.tipoObjetoSelecionado != null) {
 
+            // Uso de Polimorfismo
             this.figura = criarFigura();
             this.figura.desenhar(this.tela);
 
@@ -263,17 +270,10 @@ public class App implements DrawListener {
         switch (i) {
 
             // TECLAS F
-            case 112 ->
-                configuracaoDeFigura("Circulo");// F1
-
-            case 113 ->
-                configuracaoDeFigura("Quadrado"); // F2
-
-            case 114 ->
-                configuracaoDeFigura("Hexagono"); // F3
-
-            case 115 ->
-                configuracaoDeFigura("Losango"); // F4
+            case 112 -> configuracaoDeFigura("Circulo"); // F1
+            case 113 -> configuracaoDeFigura("Quadrado"); // F2
+            case 114 -> configuracaoDeFigura("Hexagono"); // F3
+            case 115 -> configuracaoDeFigura("Losango"); // F4
 
             // CORES
             case 116 -> { //F5
@@ -333,11 +333,8 @@ public class App implements DrawListener {
 
             // SETAS
             case 37 -> moverEsquerda(Constantes.VALOR_MOVER); // ESQUERDA
-
             case 38 -> moverCima(Constantes.VALOR_MOVER); // CIMA
-
             case 39 -> moverDireita(Constantes.VALOR_MOVER); // DIREITA
-
             case 40 -> moverBaixo(Constantes.VALOR_MOVER); // BAIXO
 
         }

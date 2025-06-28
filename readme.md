@@ -8,12 +8,16 @@
 
 ## Operação
 
-> Para rodar o código, aplique gradle run
+> Para rodar o código, aplique gradle run com o terminal na pasta "lista-4-igor1023";
 
 > Para desenhar uma figura, é necessário escolher a figura, a cor e se possui preenchimento:
-Ex.: (F1 ou F2 ou F3 ou F4) e (F5 ou F6 ou F7 ou FO) e (F) => clique em uma posição da tela
+Ex.: (F1 ou F2 ou F3 ou F4) e (F5 ou F6 ou F7 ou FO) e (F) => clique em uma posição da tela;
 
-> A função de cada opção do MENU está descrita na classe Constantes.java
+Caso contrário a seguinte mensagem aparecerá no terminal: "Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO"
+
+> Para definir o tamanho da figura (teclas Q ou W), deve-se selecionar uma figura;
+
+> A função de cada opção do MENU também está descrita na classe Constantes.java.
 
 ## Comandos - Função de cada tecla
 
@@ -34,3 +38,5 @@ Ex.: (F1 ou F2 ou F3 ou F4) e (F5 ou F6 ou F7 ou FO) e (F) => clique em uma posi
 * SETA CIMA     v : Movimenta as figuras para cima
 * SETA DIREITA  > : Movimenta as figuras para direita
 * SETA BAIXO    < : Movimenta as figuras para baixo
+
+## Diagrama de Classes

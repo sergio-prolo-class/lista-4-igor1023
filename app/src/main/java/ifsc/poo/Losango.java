@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
 
-public class Losango extends ObjetoDeDesenho{
+public class Losango extends FormaGeometrica {
 
     public Losango(){
 
@@ -162,6 +162,7 @@ public class Losango extends ObjetoDeDesenho{
 
     }
 
+    // Métodos da Interface Movedor
     @Override
     public void moverCima(double a){
 

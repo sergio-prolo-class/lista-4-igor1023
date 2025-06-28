@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
 
-public class Quadrado extends ObjetoDeDesenho{
+public class Quadrado extends FormaGeometrica {
 
     public Quadrado(){
 
@@ -119,6 +119,7 @@ public class Quadrado extends ObjetoDeDesenho{
 
     }
 
+    // Métodos da Interface Movedor
     @Override
     public void moverCima(double a){
 

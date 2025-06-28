@@ -4,36 +4,12 @@ import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
 
-public class Hexagono extends ObjetoDeDesenho{
-
-    static double areaSoma;
-
-    static{
-
-        areaSoma = 0.0;
-
-    }
+public class Hexagono extends FormaGeometrica {
 
     public Hexagono(){
 
         this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
 
-    }
-
-    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y, Color cor){
-
-        tela.setPenColor(cor);
-        tela.polygon(x, y);
-
-    }
-
-    private void desenharComPreenchimento(Draw tela, double[] x, double[] y, Color cor){
-
-        tela.setPenColor(cor);
-        tela.filledPolygon(x, y);
-
-        // Para desenhar a borda em preto
-        desenharSemPreenchimento(tela, x, y, Color.BLACK);
     }
 
     private double[] coordenadasX(double cx){
@@ -66,6 +42,23 @@ public class Hexagono extends ObjetoDeDesenho{
 
     }
 
+    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y, Color cor){
+
+        tela.setPenColor(cor);
+        tela.polygon(x, y);
+
+    }
+
+    private void desenharComPreenchimento(Draw tela, double[] x, double[] y, Color cor){
+
+        tela.setPenColor(cor);
+        tela.filledPolygon(x, y);
+
+        // Para desenhar a borda em preto
+        desenharSemPreenchimento(tela, x, y, Color.BLACK);
+    }
+
+    // Método da Interface Desenhador
     @Override
     public void desenhar(Draw tela){
 
@@ -73,13 +66,11 @@ public class Hexagono extends ObjetoDeDesenho{
         double[] x = coordenadasX(this.coordenada.getCX());
         double[] y = coordenadasY(this.coordenada.getCY());
 
-
         if(this.temPreenchimento)
             desenharComPreenchimento(tela, x, y, getCor());
         else desenharSemPreenchimento(tela, x, y, getCor());
 
         tela.show();
-        areaSoma += getArea();
 
     }
 
@@ -163,6 +154,7 @@ public class Hexagono extends ObjetoDeDesenho{
 
     }
 
+    // Métodos da Interface Movedor
     @Override
     public void moverCima(double a){
 
