@@ -10,30 +10,40 @@ import edu.princeton.cs.algs4.DrawListener;
 
 public class App implements DrawListener {
 
+    // Tela
     private final Draw tela = new Draw();
-    private final double dimensao = 10.0;
+
+    // Parametros para criar uma figura
     private ObjetoDeDesenho figura; // Figura a ser desenhada
-    private String tipoObjetoSelecionado;
     private Coordenada coordenada;
+    private boolean ehPreenchido;
+    private Color cor;
+    private double tamanho;
+
+    // Parâmetros de operação
+    private String tipoObjetoSelecionado;
     private boolean selecionouFigura;
     private boolean selecionouCor;
-    private boolean preenchido, selecionouPreenchimento;
-    private Color cor;
+    private boolean selecionouPreenchimento;
     private double somatorioArea;
     private double somatorioPerimetro;
     private List<ObjetoDeDesenho> figurasDesenhadas;
 
     public App() {
 
-        this.tela.setXscale(0.0, dimensao);
-        this.tela.setYscale(0.0, dimensao);
+        this.tela.setXscale(0.0, Constantes.DIMENSAO);
+        this.tela.setYscale(0.0, Constantes.DIMENSAO);
         this.tela.enableDoubleBuffering();
 
-        this.preenchido = false;
+        this.selecionouFigura = false;
+        this.selecionouCor = false;
         this.selecionouPreenchimento = false;
-        this.cor = Color.RED;
+        this.ehPreenchido = false;
+        this.cor = null;
+
         this.somatorioArea = 0.0;
         this.somatorioPerimetro = 0.0;
+        this.tamanho = 0.0;
         this.figurasDesenhadas = new ArrayList<>();
         this.coordenada = new Coordenada();
         this.tipoObjetoSelecionado = null;
@@ -58,19 +68,27 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDeCor(Color color) {
+    public void configuracaoDeCor(String nomeCor) {
 
-        this.cor = color;
+        this.cor = switch(nomeCor){
+
+            case "Vermelho" -> Color.RED;
+            case "Azul" -> Color.BLUE;
+            case "Verde" -> Color.GREEN;
+            case "Amarelo" -> Color.YELLOW;
+            default -> null; // Nunca vai ocorrer
+        };
+
         this.selecionouCor = true;
-        System.out.println(this.cor);
+        System.out.println("Cor: " + nomeCor);
 
     }
 
     public void configuracaoDePreenchimento() {
 
-        this.preenchido = !this.preenchido; // para intercalar
+        this.ehPreenchido = !this.ehPreenchido; // para intercalar
 
-        System.out.println("Tem preenchimento: " + this.preenchido);
+        System.out.println("Tem preenchimento: " + this.ehPreenchido);
         this.selecionouPreenchimento = true;
 
     }
@@ -83,8 +101,17 @@ public class App implements DrawListener {
         this.selecionouCor = false;
         this.selecionouPreenchimento = false;
 
-        // Para remover o "ifsc.poo.";
-        System.out.println("Figura :" + nomeFigura);
+        this.tamanho = switch(nomeFigura){
+
+            case "Circulo" -> this.tamanho = Constantes.TAMANHO_DEFAULT_CIRCULO;
+            case "Quadrado" -> this.tamanho = Constantes.TAMANHO_DEFAULT_QUADRADO;
+            case "Hexagono" -> this.tamanho = Constantes.TAMANHO_DEFAULT_HEXAGONO;
+            case "Losango" -> this.tamanho = Constantes.TAMANHO_DEFAULT_LOSANGO;
+            default -> 0.0;
+
+        };
+
+        System.out.println("Figura: " + nomeFigura);
 
     }
 
@@ -95,18 +122,25 @@ public class App implements DrawListener {
         this.figurasDesenhadas.clear();
         this.somatorioArea = 0.0;
         this.somatorioPerimetro = 0.0;
+        System.out.println("A tela foi limpa.");
 
     }
 
     public void configuracaoDeTamanho(int i) {
 
         if (i < 0) {
-            this.figura.diminuirTamanho(); 
-        }else if (i > 0) {
-            this.figura.aumentarTamanho();
+         
+            if(this.tamanho > Constantes.TAMANHO_MINIMO)
+                this.tamanho -= Constantes.VALOR_ALTERAR;        
+
+        } else if (i > 0) {
+
+            if(this.tamanho < Constantes.TAMANHO_MAXIMO)
+                this.tamanho += Constantes.VALOR_ALTERAR; 
+
         }
 
-        System.out.println("Tamanho: " + this.figura.getTamanho());
+        System.out.println("Tamanho: " + this.tamanho);
 
     }
 
@@ -120,9 +154,8 @@ public class App implements DrawListener {
 
     public void moverEsquerda(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
+        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
             fig.moverEsquerda(a);
-        }
 
         desenharFiguras();
 
@@ -130,9 +163,8 @@ public class App implements DrawListener {
 
     public void moverBaixo(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
+        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
             fig.moverBaixo(a);
-        }
 
         desenharFiguras();
 
@@ -140,9 +172,8 @@ public class App implements DrawListener {
 
     public void moverDireita(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
+        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
             fig.moverDireita(a);
-        }
 
         desenharFiguras();
 
@@ -150,9 +181,8 @@ public class App implements DrawListener {
 
     public void moverCima(double a) {
 
-        for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
+        for (ObjetoDeDesenho fig : this.figurasDesenhadas) 
             fig.moverCima(a);
-        }
 
         desenharFiguras();
 
@@ -165,7 +195,8 @@ public class App implements DrawListener {
         for (ObjetoDeDesenho fig : this.figurasDesenhadas) {
 
             fig.desenhar(this.tela);
-            System.out.println(fig.getCoordenada().getCX() + "; " + fig.getCoordenada().getCY());
+            // Para depurar
+            // System.out.println(fig.getCoordenada().getCX() + "; " + fig.getCoordenada().getCY());
 
         }
     }
@@ -174,21 +205,19 @@ public class App implements DrawListener {
 
         ObjetoDeDesenho fig = switch (this.tipoObjetoSelecionado) {
 
-            case "Circulo" ->
-                new Circulo();
-            case "Quadrado" ->
-                new Quadrado();
-            case "Hexagono" ->
-                new Hexagono();
-            case "Losango" ->
-                new Losango();
-            default ->
-                null; // nunca vai ser 
+            case "Circulo"  -> new Circulo();
+            case "Quadrado" -> new Quadrado();
+            case "Hexagono" -> new Hexagono();
+            case "Losango"  -> new Losango();
+            default -> null; // nunca vai ser 
 
         };
 
+        // nunca será NULL
+        fig.setTamanho(this.tamanho);
+        fig.setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
         fig.definirCorLinha(this.cor);
-        fig.setPreenchimento(preenchido);
+        fig.setPreenchimento(this.ehPreenchido);
 
         return fig;
 
@@ -212,7 +241,6 @@ public class App implements DrawListener {
             && this.tipoObjetoSelecionado != null) {
 
             this.figura = criarFigura();
-            this.figura.setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
             this.figura.desenhar(this.tela);
 
             // Só contabilizo uma figura criada quando ela é desenhada
@@ -221,12 +249,7 @@ public class App implements DrawListener {
             somatorioArea += this.figura.getArea();
             somatorioPerimetro += this.figura.getPerimetro();
 
-            // this.selecionouFigura = false;
-            // this.selecionouCor = false;
-            // this.selecionouPreenchimento = false;
-
-        } else 
-            System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
+        } else System.out.println("Defina as características: FIGURA, COR e POSSUI PREENCHIMENTO");
 
     }
 
@@ -235,6 +258,7 @@ public class App implements DrawListener {
     public void keyReleased(int i) {
 
         // CÓDIGOS: https://learn.microsoft.com/pt-br/dotnet/api/system.windows.forms.keys?view=windowsdesktop-8.0
+        
         // Compilador sugeriu aplicar "rule switch"
         switch (i) {
 
@@ -254,79 +278,67 @@ public class App implements DrawListener {
             // CORES
             case 116 -> { //F5
 
-                if (selecionouFigura) {
-                    configuracaoDeCor(Color.RED);
-                }
+                if (selecionouFigura) 
+                    configuracaoDeCor("Vermelho");
 
             }
 
             case 117 -> { // F6
 
-                if (selecionouFigura) {
-                    configuracaoDeCor(Color.BLUE);
-                }
+                if (selecionouFigura) 
+                    configuracaoDeCor("Azul");
 
             }
 
             case 118 -> { // F7
 
-                if (selecionouFigura) {
-                    configuracaoDeCor(Color.GREEN);
-                }
+                if (selecionouFigura) 
+                    configuracaoDeCor("Verde");
 
             }
 
             case 119 -> { // F8
 
-                if (selecionouFigura) {
-                    configuracaoDeCor(Color.YELLOW);
-                }
+                if (selecionouFigura) 
+                    configuracaoDeCor("Amarelo");
 
             }
 
             // COMANDOS 
-            case 67 ->
-                configuracaoDeLimpeza(); // C
+            case 67 -> configuracaoDeLimpeza(); // C
 
             case 70 -> { // F
 
-                if (selecionouFigura) {
+                if (selecionouFigura)
                     configuracaoDePreenchimento();
-                }
 
             }
 
-            case 80 ->
-                processar(); // P
+            case 80 -> processar(); // P
 
             case 81 -> { // Q
 
-                if (selecionouFigura) {
+                if (selecionouFigura) 
                     configuracaoDeTamanho(-1);
-                }
+                else System.out.println("Selecione uma figura");
 
             }
 
             case 87 -> { // W
 
-                if (selecionouFigura) {
+                if (selecionouFigura) 
                     configuracaoDeTamanho(1);
-                }
-
+                else System.out.println("Selecione uma figura");
             }
 
             // SETAS
-            case 37 ->
-                moverEsquerda(Constantes.VALOR_MOVER); // ESQUERDA
+            case 37 -> moverEsquerda(Constantes.VALOR_MOVER); // ESQUERDA
 
-            case 38 ->
-                moverCima(Constantes.VALOR_MOVER); // CIMA
+            case 38 -> moverCima(Constantes.VALOR_MOVER); // CIMA
 
-            case 39 ->
-                moverDireita(Constantes.VALOR_MOVER); // DIREITA
+            case 39 -> moverDireita(Constantes.VALOR_MOVER); // DIREITA
 
-            case 40 ->
-                moverBaixo(Constantes.VALOR_MOVER); // BAIXO
+            case 40 -> moverBaixo(Constantes.VALOR_MOVER); // BAIXO
 
         }
 

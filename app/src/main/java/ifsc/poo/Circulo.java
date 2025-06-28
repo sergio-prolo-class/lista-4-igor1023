@@ -15,14 +15,14 @@ public class Circulo extends ObjetoDeDesenho{
     private void desenharSemPreenchimento(Draw tela, Coordenada coord){
 
         tela.setPenColor(Color.BLACK);
-        tela.circle(coord.getCX(), coord.getCY(), tamanho);
+        tela.circle(coord.getCX(), coord.getCY(), getTamanho());
 
     }
 
     private void desenharComPreenchimento(Draw tela, Coordenada coord, Color cor){
 
         tela.setPenColor(cor);
-        tela.filledCircle(coord.getCX(), coord.getCY(), this.tamanho);
+        tela.filledCircle(coord.getCX(), coord.getCY(), getTamanho());
 
         // Para desenhar a borda em preto
         tela.setPenColor(Color.BLACK);
@@ -48,19 +48,26 @@ public class Circulo extends ObjetoDeDesenho{
     }
 
     @Override
+    public void setTamanho(double i){
+
+        this.tamanho = i;
+
+    }
+
+    @Override
     public void aumentarTamanho(){
 
-        if(this.tamanho < TAMANHO_MAXIMO)
-            tamanho += ALTERAR;
+        if(this.tamanho < Constantes.TAMANHO_MAXIMO)
+            this.tamanho += Constantes.VALOR_ALTERAR;
 
     }
 
     @Override
     public void diminuirTamanho(){
         
-        if(this.tamanho > TAMANHO_MINIMO)
-            tamanho -= ALTERAR;
-
+        if(this.tamanho > Constantes.TAMANHO_MINIMO)
+            this.tamanho -= Constantes.VALOR_ALTERAR;
+        
     }
 
     @Override
@@ -136,7 +143,7 @@ public class Circulo extends ObjetoDeDesenho{
     public void moverEsquerda(double a){
 
         // Modifico a componente X
-        this.coordenada.setCX(this.coordenada.getCY() - a);
+        this.coordenada.setCX(this.coordenada.getCX() - a);
         setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
 
     }
@@ -145,7 +152,7 @@ public class Circulo extends ObjetoDeDesenho{
     public void moverDireita(double a){
 
         // Modifico a componente X
-        this.coordenada.setCX(this.coordenada.getCY() + a);
+        this.coordenada.setCX(this.coordenada.getCX() + a);
         setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
 
     }

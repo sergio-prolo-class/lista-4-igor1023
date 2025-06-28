@@ -8,17 +8,6 @@ import edu.princeton.cs.algs4.Draw;
 
 public abstract class ObjetoDeDesenho{
 
-    static final double TAMANHO_MINIMO, TAMANHO_MAXIMO;
-    static final double ALTERAR;
-
-    static{
-        
-        TAMANHO_MINIMO = 0.5;
-        TAMANHO_MAXIMO = 5.5;
-        ALTERAR = 0.25;
-
-    }
-
     protected Color corDeLinha;
     protected double tamanho, area;
     protected boolean temPreenchimento;
@@ -29,6 +18,7 @@ public abstract class ObjetoDeDesenho{
     abstract void diminuirTamanho();
     abstract void definirCorLinha(Color cor);
     abstract double getTamanho();
+    abstract void setTamanho(double i);
     abstract double getArea();
     abstract double getPerimetro();
     abstract void setPreenchimento(boolean p);

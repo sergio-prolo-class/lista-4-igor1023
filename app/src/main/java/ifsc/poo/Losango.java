@@ -92,18 +92,25 @@ public class Losango extends ObjetoDeDesenho{
     }
 
     @Override
+    public void setTamanho(double i){
+
+        this.tamanho = i;
+
+    }
+
+    @Override
     public void aumentarTamanho(){
 
-        if(this.tamanho < TAMANHO_MAXIMO)
-            tamanho += ALTERAR;
+        if(this.tamanho < Constantes.TAMANHO_MAXIMO)
+            tamanho += Constantes.VALOR_ALTERAR;
 
     }
 
     @Override
     public void diminuirTamanho(){
         
-        if(this.tamanho > TAMANHO_MINIMO)
-            tamanho -= ALTERAR;
+        if(this.tamanho > Constantes.TAMANHO_MINIMO)
+            tamanho -= Constantes.VALOR_ALTERAR;
 
     }
 
@@ -179,7 +186,7 @@ public class Losango extends ObjetoDeDesenho{
     public void moverEsquerda(double a){
 
         // Modifico a componente X
-        this.coordenada.setCX(this.coordenada.getCY() - a);
+        this.coordenada.setCX(this.coordenada.getCX() - a);
         setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
 
     }
@@ -188,7 +195,7 @@ public class Losango extends ObjetoDeDesenho{
     public void moverDireita(double a){
 
         // Modifico a componente X
-        this.coordenada.setCX(this.coordenada.getCY() + a);
+        this.coordenada.setCX(this.coordenada.getCX() + a);
         setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
 
     }
