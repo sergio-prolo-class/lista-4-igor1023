@@ -20,10 +20,9 @@ public class Hexagono extends ObjetoDeDesenho{
 
     }
 
-    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y){
+    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y, Color cor){
 
-        
-        tela.setPenColor(Color.BLACK);
+        tela.setPenColor(cor);
         tela.polygon(x, y);
 
     }
@@ -34,8 +33,7 @@ public class Hexagono extends ObjetoDeDesenho{
         tela.filledPolygon(x, y);
 
         // Para desenhar a borda em preto
-        tela.setPenColor(Color.BLACK);
-        desenharSemPreenchimento(tela, x, y);
+        desenharSemPreenchimento(tela, x, y, Color.BLACK);
     }
 
     private double[] coordenadasX(double cx){
@@ -77,8 +75,8 @@ public class Hexagono extends ObjetoDeDesenho{
 
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, x, y, this.corDeLinha);
-        else desenharSemPreenchimento(tela, x, y);
+            desenharComPreenchimento(tela, x, y, getCor());
+        else desenharSemPreenchimento(tela, x, y, getCor());
 
         tela.show();
         areaSoma += getArea();
@@ -118,7 +116,7 @@ public class Hexagono extends ObjetoDeDesenho{
     @Override
     public void definirCorLinha(Color cor){
 
-        this.corDeLinha = cor;
+        this.cor = cor;
 
     }
 
@@ -161,7 +159,7 @@ public class Hexagono extends ObjetoDeDesenho{
     @Override
     public Color getCor(){
 
-        return this.corDeLinha;
+        return this.cor;
 
     }
 

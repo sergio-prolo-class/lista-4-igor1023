@@ -12,10 +12,9 @@ public class Losango extends ObjetoDeDesenho{
 
     }
 
-    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y){
-
+    private void desenharSemPreenchimento(Draw tela, double[] x, double[] y, Color cor){
         
-        tela.setPenColor(Color.BLACK);
+        tela.setPenColor(cor);
         tela.polygon(x, y);
 
     }
@@ -26,8 +25,7 @@ public class Losango extends ObjetoDeDesenho{
         tela.filledPolygon(x, y);
 
         // Para desenhar a borda em preto
-        tela.setPenColor(Color.BLACK);
-        desenharSemPreenchimento(tela, x, y);
+        desenharSemPreenchimento(tela, x, y, Color.BLACK);
     }
 
     private double[] coordenadasX(double cx){
@@ -77,8 +75,8 @@ public class Losango extends ObjetoDeDesenho{
 
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, x, y, this.corDeLinha);
-        else desenharSemPreenchimento(tela, x, y);
+            desenharComPreenchimento(tela, x, y, getCor());
+        else desenharSemPreenchimento(tela, x, y, getCor());
 
         tela.show();
 
@@ -117,7 +115,7 @@ public class Losango extends ObjetoDeDesenho{
     @Override
     public void definirCorLinha(Color cor){
 
-        this.corDeLinha = cor;
+        this.cor = cor;
 
     }
 
@@ -160,7 +158,7 @@ public class Losango extends ObjetoDeDesenho{
     @Override
     public Color getCor(){
 
-        return this.corDeLinha;
+        return this.cor;
 
     }
 
@@ -169,7 +167,7 @@ public class Losango extends ObjetoDeDesenho{
 
         // Modifico a componente Y
         this.coordenada.setCY(this.coordenada.getCY() + a);
-        setCoordenada(this.coordenada.getCX(), this.coordenada.getCY());
+        setCoordenada(getCoordenada().getCX(), getCoordenada().getCY());
 
     }
 

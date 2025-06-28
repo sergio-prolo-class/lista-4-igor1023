@@ -1,5 +1,4 @@
 // Classe abstrata
-// SE necessario
 
 package ifsc.poo;
 import java.awt.Color;
@@ -8,7 +7,7 @@ import edu.princeton.cs.algs4.Draw;
 
 public abstract class ObjetoDeDesenho{
 
-    protected Color corDeLinha;
+    protected Color cor;
     protected double tamanho, area;
     protected boolean temPreenchimento;
     protected Coordenada coordenada;

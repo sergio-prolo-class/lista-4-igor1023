@@ -26,15 +26,15 @@ package ifsc.poo;
 
 public class Constantes{
 
-    static final double TAMANHO_DEFAULT_CIRCULO = 3.0;
-    static final double TAMANHO_DEFAULT_QUADRADO = 2.5;
-    static final double TAMANHO_DEFAULT_HEXAGONO = 2.0;
-    static final double TAMANHO_DEFAULT_LOSANGO = 1.5;
-    static final double VALOR_MOVER = 1.0;
-    static final double VALOR_ALTERAR = 0.5;
-    static final double TAMANHO_MINIMO = 0.5;
-    static final double TAMANHO_MAXIMO = 5.5;
+    public static final double TAMANHO_DEFAULT_CIRCULO = 3.0;
+    public static final double TAMANHO_DEFAULT_QUADRADO = 2.5;
+    public static final double TAMANHO_DEFAULT_HEXAGONO = 2.0;
+    public static final double TAMANHO_DEFAULT_LOSANGO = 1.5;
+    public static final double VALOR_MOVER = 1.0;
+    public static final double VALOR_ALTERAR = 0.5;
+    public static final double TAMANHO_MINIMO = 0.5;
+    public static final double TAMANHO_MAXIMO = 5.5;
 
-    static final double DIMENSAO = 10.0;
+    public static final double DIMENSAO = 10.0;
 
 }

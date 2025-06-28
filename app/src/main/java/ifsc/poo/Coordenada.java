@@ -2,7 +2,7 @@ package ifsc.poo;
 
 public class Coordenada{
 
-    private double x, y;
+    public double x, y;
 
     public Coordenada(){
 

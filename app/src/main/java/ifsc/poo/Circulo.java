@@ -1,5 +1,4 @@
 package ifsc.poo;
-
 import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
@@ -12,9 +11,9 @@ public class Circulo extends ObjetoDeDesenho{
 
     }
 
-    private void desenharSemPreenchimento(Draw tela, Coordenada coord){
+    private void desenharSemPreenchimento(Draw tela, Coordenada coord, Color cor){
 
-        tela.setPenColor(Color.BLACK);
+        tela.setPenColor(cor);
         tela.circle(coord.getCX(), coord.getCY(), getTamanho());
 
     }
@@ -25,16 +24,15 @@ public class Circulo extends ObjetoDeDesenho{
         tela.filledCircle(coord.getCX(), coord.getCY(), getTamanho());
 
         // Para desenhar a borda em preto
-        tela.setPenColor(Color.BLACK);
-        desenharSemPreenchimento(tela, coord);
+        desenharSemPreenchimento(tela, coord, Color.BLACK);
     }
 
     @Override
     public void desenhar(Draw tela){
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, this.coordenada, this.corDeLinha);
-        else desenharSemPreenchimento(tela, this.coordenada);
+            desenharComPreenchimento(tela, this.coordenada, this.cor);
+        else desenharSemPreenchimento(tela, this.coordenada, this.cor);
 
         tela.show();
 
@@ -73,7 +71,7 @@ public class Circulo extends ObjetoDeDesenho{
     @Override
     public void definirCorLinha(Color cor){
 
-        this.corDeLinha = cor;
+        this.cor = cor;
 
     }
 
@@ -117,7 +115,7 @@ public class Circulo extends ObjetoDeDesenho{
     @Override
     public Color getCor(){
 
-        return this.corDeLinha;
+        return this.cor;
 
     }
 

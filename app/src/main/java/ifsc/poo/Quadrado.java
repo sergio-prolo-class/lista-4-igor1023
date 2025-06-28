@@ -1,4 +1,5 @@
 package ifsc.poo;
+
 import java.awt.Color;
 
 import edu.princeton.cs.algs4.Draw;
@@ -11,9 +12,9 @@ public class Quadrado extends ObjetoDeDesenho{
 
     }
 
-    private void desenharSemPreenchimento(Draw tela, Coordenada coord){
+    private void desenharSemPreenchimento(Draw tela, Coordenada coord, Color cor){
 
-        tela.setPenColor(Color.BLACK);
+        tela.setPenColor(cor);
         tela.square(coord.getCX(), coord.getCY(), getTamanho());
 
     }
@@ -24,16 +25,15 @@ public class Quadrado extends ObjetoDeDesenho{
         tela.filledSquare(coord.getCX(), coord.getCY(), getTamanho());
 
         // Para desenhar a borda em preto
-        tela.setPenColor(Color.BLACK);
-        desenharSemPreenchimento(tela, coord);
+        desenharSemPreenchimento(tela, coord, Color.BLACK);
     }
 
     @Override
     public void desenhar(Draw tela){
 
         if(this.temPreenchimento)
-            desenharComPreenchimento(tela, this.coordenada, this.corDeLinha);
-        else desenharSemPreenchimento(tela, this.coordenada);
+            desenharComPreenchimento(tela, getCoordenada(), getCor());
+        else desenharSemPreenchimento(tela, getCoordenada(), getCor());
 
         tela.show();
 
@@ -72,7 +72,7 @@ public class Quadrado extends ObjetoDeDesenho{
     @Override
     public void definirCorLinha(Color cor){
 
-        this.corDeLinha = cor;
+        this.cor = cor;
 
     }
 
@@ -115,7 +115,7 @@ public class Quadrado extends ObjetoDeDesenho{
     @Override
     public Color getCor(){
 
-        return this.corDeLinha;
+        return this.cor;
 
     }
 
