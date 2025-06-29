@@ -22,9 +22,5 @@ public abstract class FormaGeometrica
     abstract void setCoordenada(double x, double y);
     abstract Coordenada getCoordenada();
     abstract Color getCor();
-    // abstract void moverCima(double a);
-    // abstract void moverBaixo(double a);
-    // abstract void moverEsquerda(double a);
-    // abstract void moverDireita(double a);
 
 }

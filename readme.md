@@ -40,3 +40,74 @@ Caso contrário a seguinte mensagem aparecerá no terminal: "Defina as caracter�
 * SETA BAIXO    < : Movimenta as figuras para baixo
 
 ## Diagrama de Classes
+```mermaid
+classDiagram
+    class FormaGeometrica{
+        <<abstract>>
+        # cor : Color
+        # tamanho : double
+        # area : double
+        # temPreenchimento : boolean
+        # coordenada : Coordenada
+
+        + aumentarTamanho() void
+        + diminuirTamanho() void
+        + setCor(Color cor) void
+        + getTamanho() double
+        + setTamanho(double i) void
+        + getArea() double
+        + getPerimetro() double;
+        + setPreenchimento(boolean p) void
+        + setCoordenada(double x, double y) void
+        + getCoordenada() Coordenada
+        + getCor() Color
+    }
+
+    class Desenhador{
+        <<interface>>
+
+        + desenhar(Draw tela) void
+    }
+
+    class Movedor{
+        <<interface>>
+
+        + moverBaixo(double a) void
+        + moverCima(double a) void
+        + moverEsquerda(double a) void
+        + moverDireita(double a) void
+    }
+
+    Desenhador <|.. FormaGeometrica
+    Movedor <|.. FormaGeometrica
+
+    class Circulo{
+        
+        + Circulo()
+        - desenharComPreenchimento(Draw tela) void
+        - desenharSemPreenchimento(Draw tela) void
+    }
+
+    class Quadrado {
+        
+    }
+
+    class Hexagono {
+
+    }
+
+    class Losango {
+
+    }
+
+    class App{
+
+    }
+
+    FormaGeometrica <|-- Circulo
+    FormaGeometrica <|-- Quadrado
+    FormaGeometrica <|-- Hexagono
+    FormaGeometrica <|-- Losango
+    FormaGeometrica <|-- App
+
+```
