@@ -1,6 +1,6 @@
 // Interface para mover uma Forma Geometrica
 
-package ifsc.poo;
+package ifsc.poo.interfaces;
 
 public interface Movedor{
 

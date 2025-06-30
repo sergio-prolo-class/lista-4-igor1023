@@ -7,6 +7,11 @@ import java.util.List;
 
 import edu.princeton.cs.algs4.Draw;
 import edu.princeton.cs.algs4.DrawListener;
+import ifsc.poo.figuras.Circulo;
+import ifsc.poo.figuras.FormaGeometrica;
+import ifsc.poo.figuras.Hexagono;
+import ifsc.poo.figuras.Losango;
+import ifsc.poo.figuras.Quadrado;
 
 public class App implements DrawListener {
 
@@ -342,6 +347,8 @@ public class App implements DrawListener {
 
     }
 
+
+    // Não utilizados
     @Override
     public void mouseDragged(double v, double v1) {
     }
