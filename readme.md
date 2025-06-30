@@ -79,6 +79,10 @@ classDiagram
         + moverDireita(double a) void
     }
 
+    class DrawListener{
+        <<interface>>
+    }
+
     class Coordenada{
 
         + Coordenada()
@@ -123,6 +127,38 @@ classDiagram
 
     class App{
 
+        - tela : Draw
+        - figura: FormaGeometrica
+        - coordenada : Coordenada
+        - ehPreenchido : boolean
+        - cor : Color
+        - tamanho : double
+        - tipoObjetoSelecionado : String
+        - selecionouFigura : boolean
+        - selecionouCor : boolean
+        - selecionouPreenchimento : boolean
+        - somatorioArea : double
+        - somatorioPerimetro : double 
+        - figurasDesenhadas : List<FormaGeometrica>
+
+        + App()
+        + main(String[] args) void
+        - iniciar() void
+        - desenharTela() void
+        - configuracaoDeCor(String nomeCor) void
+        - configuracaoDePreenchimento() void
+        - configuracaoDeFigura(String nomeFigura) void
+        - configuracaoDeLimpeza() void
+        - configuracaoDeTamanho(int i) void
+        - processar() void
+        - moverEsquerda(double a) void
+        - moverDireita(double a) void
+        - moverCima(double a) void
+        - moverBaixo(double a) void
+        - desenharFiguras() void
+        - criarFigura() FormaGeometrica
+        
+
     }
 
     FormaGeometrica <|-- Circulo
@@ -130,5 +166,6 @@ classDiagram
     FormaGeometrica <|-- Hexagono
     FormaGeometrica <|-- Losango
     FormaGeometrica <|-- App
+    App --|> DrawListener : implementa
 
 ```

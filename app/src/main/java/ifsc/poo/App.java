@@ -20,11 +20,12 @@ public class App implements DrawListener {
     private Color cor;
     private double tamanho;
 
-    // Parâmetros de operação
+    // Parâmetros de operação obtidos do teclado
     private String tipoObjetoSelecionado;
     private boolean selecionouFigura;
     private boolean selecionouCor;
     private boolean selecionouPreenchimento;
+
     private double somatorioArea;
     private double somatorioPerimetro;
     private final List<FormaGeometrica> figurasDesenhadas;
@@ -50,7 +51,7 @@ public class App implements DrawListener {
 
     }
 
-    public void iniciar() {
+    private void iniciar() {
 
         // Compilador informou de vazamento no construtor:
         // estou passando o proprio objeto antes de finalizar 
@@ -60,7 +61,7 @@ public class App implements DrawListener {
 
     }
 
-    public void desenharTela() {
+    private void desenharTela() {
 
         this.tela.clear();
         this.tela.setTitle("Lista 4 | Aluno: Igor da Silva");
@@ -68,7 +69,7 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDeCor(String nomeCor) {
+    private void configuracaoDeCor(String nomeCor) {
 
         this.cor = switch(nomeCor){
 
@@ -84,7 +85,7 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDePreenchimento() {
+    private void configuracaoDePreenchimento() {
 
         this.ehPreenchido = ! this.ehPreenchido; // para intercalar
 
@@ -93,7 +94,7 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDeFigura(String nomeFigura) {
+    private void configuracaoDeFigura(String nomeFigura) {
         
         this.tipoObjetoSelecionado = nomeFigura;
         this.selecionouFigura = true;
@@ -115,7 +116,7 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDeLimpeza() {
+    private void configuracaoDeLimpeza() {
 
         this.tela.clear();
         this.tela.show();
@@ -128,7 +129,7 @@ public class App implements DrawListener {
 
     }
 
-    public void configuracaoDeTamanho(int i) {
+    private void configuracaoDeTamanho(int i) {
 
         if (i < 0) {
          
@@ -146,7 +147,7 @@ public class App implements DrawListener {
 
     }
 
-    public void processar() {
+    private void processar() {
 
         System.out.printf("Total de figuras desenhadas: %d\n", this.figurasDesenhadas.size());
         System.out.printf("Somatório de área das figuras: %.2f\n", this.somatorioArea);
@@ -159,7 +160,7 @@ public class App implements DrawListener {
     // > Altero as coordenadas conforme a direção;
     // > Redesenho as figuras
 
-    public void moverEsquerda(double a) {
+    private void moverEsquerda(double a) {
 
         for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverEsquerda(a);
@@ -168,7 +169,7 @@ public class App implements DrawListener {
 
     }
 
-    public void moverBaixo(double a) {
+    private void moverBaixo(double a) {
 
         for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverBaixo(a);
@@ -177,7 +178,7 @@ public class App implements DrawListener {
 
     }
 
-    public void moverDireita(double a) {
+    private void moverDireita(double a) {
 
         for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverDireita(a);
@@ -186,7 +187,7 @@ public class App implements DrawListener {
 
     }
 
-    public void moverCima(double a) {
+    private void moverCima(double a) {
 
         for (FormaGeometrica fig : this.figurasDesenhadas) 
             fig.moverCima(a);
