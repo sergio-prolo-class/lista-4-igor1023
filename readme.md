@@ -81,6 +81,14 @@ classDiagram
 
     class DrawListener{
         <<interface>>
+
+        + mousePressed(double x, double y) void
+        + keyReleased(int i) void
+        + mouseDragged(double v, double v1) void
+        + mouseReleased(double v, double v1) void
+        + mouseClicked(double v, double v1) void
+        + keyPressed(int i) void
+        + keyTyped(char c) void
     }
 
     class Coordenada{
@@ -91,10 +99,6 @@ classDiagram
         + getCX() double
         + getCY() double
     }
-
-    Desenhador <|.. FormaGeometrica
-    Movedor <|.. FormaGeometrica
-    FormaGeometrica --> "1..*" Coordenada : coordenadas
 
     class Circulo{
         
@@ -112,7 +116,6 @@ classDiagram
 
     class Hexagono {
 
-
         + Hexagono()
         - desenharComPreenchimento(Draw tela) void
         - desenharSemPreenchimento(Draw tela) void
@@ -127,24 +130,30 @@ classDiagram
 
     class App{
 
+        + main(String[] args) void
+        
+    }
+
+    class InterfaceUsuario{
+
         - tela : Draw
-        - figura: FormaGeometrica
+        - figura : FormaGeometrica
         - coordenada : Coordenada
         - ehPreenchido : boolean
         - cor : Color
         - tamanho : double
         - tipoObjetoSelecionado : String
         - selecionouFigura : boolean
-        - selecionouCor : boolean
-        - selecionouPreenchimento : boolean
+        - selecionouCor: boolean
+        - selecionouPreenchimento
         - somatorioArea : double
-        - somatorioPerimetro : double 
+        - somatorioPerimetro : double
         - figurasDesenhadas : List<FormaGeometrica>
 
-        + App()
-        + main(String[] args) void
-        - iniciar() void
-        - desenharTela() void
+        + InterfaceUsuario()
+        - iniciarTela() void
+        - desenharTela(String Titulo) void
+        + iniciar(String titulo) void
         - configuracaoDeCor(String nomeCor) void
         - configuracaoDePreenchimento() void
         - configuracaoDeFigura(String nomeFigura) void
@@ -152,12 +161,26 @@ classDiagram
         - configuracaoDeTamanho(int i) void
         - processar() void
         - moverEsquerda(double a) void
+        - moverBaixo(double a) void
         - moverDireita(double a) void
         - moverCima(double a) void
-        - moverBaixo(double a) void
-        - desenharFiguras() void
-        - criarFigura() FormaGeometrica
+        - criarFigura() void
+
+    }
+
+    class Constantes {
+
+        <<utility>>
         
+        +~TAMANHO_DEFAULT_CIRCULO : double
+        +~TAMANHO_DEFAULT_QUADRADO : double
+        +~TAMANHO_DEFAULT_HEXAGONO : double
+        +~TAMANHO_DEFAULT_LOSANGO : double
+        +~VALOR_MOVER : double
+        +~VALOR_ALTERAR : double
+        +~TAMANHO_MINIMO : double
+        +~TAMANHO_MAXIMO : double
+        +~DIMENSAO : double
 
     }
 
@@ -165,7 +188,11 @@ classDiagram
     FormaGeometrica <|-- Quadrado
     FormaGeometrica <|-- Hexagono
     FormaGeometrica <|-- Losango
-    FormaGeometrica <|-- App
-    App --|> DrawListener : implementa
+    FormaGeometrica <|-- InterfaceUsuario
+    App --|> "1" InterfaceUsuario
+    FormaGeometrica --> "1" Coordenada : coordenada
+    Desenhador <|.. FormaGeometrica : implementa
+    Movedor <|.. FormaGeometrica : implementa
+    DrawListener <|.. InterfaceUsuario : implementa
 
 ```
