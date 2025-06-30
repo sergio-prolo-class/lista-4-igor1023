@@ -42,6 +42,7 @@ Caso contrário a seguinte mensagem aparecerá no terminal: "Defina as caracter�
 ## Diagrama de Classes
 ```mermaid
 classDiagram
+
     class FormaGeometrica{
         <<abstract>>
         # cor : Color
@@ -78,8 +79,18 @@ classDiagram
         + moverDireita(double a) void
     }
 
+    class Coordenada{
+
+        + Coordenada()
+        + setCX(double x) void
+        + setCY(double y) void
+        + getCX() double
+        + getCY() double
+    }
+
     Desenhador <|.. FormaGeometrica
     Movedor <|.. FormaGeometrica
+    FormaGeometrica --> "1..*" Coordenada : coordenadas
 
     class Circulo{
         
@@ -90,14 +101,24 @@ classDiagram
 
     class Quadrado {
         
+        + Quadrado()
+        - desenharComPreenchimento(Draw tela) void
+        - desenharSemPreenchimento(Draw tela) void
     }
 
     class Hexagono {
 
+
+        + Hexagono()
+        - desenharComPreenchimento(Draw tela) void
+        - desenharSemPreenchimento(Draw tela) void
     }
 
     class Losango {
 
+        + Losango()
+        - desenharComPreenchimento(Draw tela) void
+        - desenharSemPreenchimento(Draw tela) void
     }
 
     class App{
