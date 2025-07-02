@@ -126,6 +126,45 @@ classDiagram
         + Losango()
         - desenharComPreenchimento(Draw tela) void
         - desenharSemPreenchimento(Draw tela) void
+        - coordenadasX(double cx) double[]
+        - coordenadasY(double cy) double []
+        - diagonal1() double
+        - diagonal2() double
+    }
+
+    class InterfaceUsuario {
+
+        - tela : Draw
+        - figura : FormaGeometrica
+        - coordenada : Coordenada
+        - ehPreenchido : boolean
+        - cor : Color
+        - tamanho : double
+        - tipoObjetoSelecionado : String
+        - selecionouFigura : boolean
+        - selecionouCor : boolean
+        - selecionouPreenchimento : boolean
+        - somatorioArea : double
+        - somatorioPerimetro : double
+        - figurasDesenhadas : List<FormaGeometrica>
+
+        + InterfaceUsuario()
+        - iniciarTela() void
+        - desenharTela(String titulo) void
+        + iniciar(String titulo) void
+        - configuracaoDeCor(String nomeCor) void
+        - configuracaoDePreenchimento() void
+        - configuracaoDeFigura(String nomeFigura) void
+        - configuracaoDeLimpeza() void
+        - configuracaoDeTamanho(int i) void
+        - processar() void
+        - moverEsquerda(double a) void
+        - moverDireita(double a) void
+        - moverCima(double a) void
+        - moverBaixo(double a) void
+        - desenharFiguras() void
+        - criarFigura() FormaGeometrica
+
     }
 
     class App{
@@ -189,7 +228,7 @@ classDiagram
     FormaGeometrica <|-- Hexagono
     FormaGeometrica <|-- Losango
     FormaGeometrica <|-- InterfaceUsuario
-    App --|> "1" InterfaceUsuario
+    App --|> "1" InterfaceUsuario : possui
     FormaGeometrica --> "1" Coordenada : coordenada
     Desenhador <|.. FormaGeometrica : implementa
     Movedor <|.. FormaGeometrica : implementa
